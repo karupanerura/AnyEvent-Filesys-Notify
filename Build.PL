@@ -12,8 +12,9 @@ my $build = Module::Build->new(
         'Carp'                 => 0,
         'Try::Tiny'            => 0,
         'namespace::autoclean' => 0,
-        ( $^O eq 'linux'  ? ( 'Linux::Inotify2' => 0 ) : () ),
-        ( $^O eq 'darwin' ? ( 'Mac::FSEvents'   => 0 ) : () ),
+        ( $^O eq 'linux'   ? ( 'Linux::Inotify2'         => 0      ) : () ),
+        ( $^O eq 'darwin'  ? ( 'Mac::FSEvents'           => 0      ) : () ),
+        ( $^O eq 'freebsd' ? ( 'Filesys::Notify::KQueue' => '0.07' ) : () ),
     },
 
     build_requires => {

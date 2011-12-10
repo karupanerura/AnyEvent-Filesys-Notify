@@ -164,6 +164,15 @@ sub _load_backend {
               . "Mac::FSEvents or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
+    } elsif ( $^O eq 'freebsd' ) {
+        try {
+            apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::KQueue' );
+        }
+        catch {
+            croak "Unable to load the kqueue plugin. You may want to install "
+              . "Filesys::Notify::KQueue or specify 'no_external' (but that is very "
+              . "inefficient):\n$_";
+        }
     } else {
         apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Fallback' );
     }

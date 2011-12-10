@@ -32,13 +32,16 @@ my $n = AnyEvent::Filesys::Notify->new(
 isa_ok( $n, 'AnyEvent::Filesys::Notify' );
 
 SKIP: {
-    skip "not sure which os we are on", 1 unless $^O =~ /linux|darwin/;
+    skip "not sure which os we are on", 1 unless $^O =~ /linux|darwin|freebsd/;
     ok( $n->does('AnyEvent::Filesys::Notify::Role::Linux'),
         '... with the linux role' )
       if $^O eq 'linux';
     ok( $n->does('AnyEvent::Filesys::Notify::Role::Mac'),
         '... with the mac role' )
       if $^O eq 'darwin';
+    ok( $n->does('AnyEvent::Filesys::Notify::Role::KQueue'),
+        '... with the kqueue role' )
+      if $^O eq 'freebsd';
 }
 
 diag "This might take a 5 seconds or so....";
